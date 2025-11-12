@@ -9,7 +9,7 @@ const bot = new Bot(token);
 const score: Record<number, number> = {};
 
 function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function uploadImageWithRetry(url: string, retries = 3): Promise<any> {
@@ -63,66 +63,44 @@ const images = await (async () => {
 
 const getImg = (key: string) => images[key]?.toJson?.() || null;
 
-process.on('unhandledRejection', (error) => {
+process.on('unhandledRejection', error => {
   console.log('Error', error);
 });
 
-process.on('uncaughtException', (error) => {
+process.on('uncaughtException', error => {
   console.log('Error:', error);
 });
 
-const keyboardStart = Keyboard.inlineKeyboard([
-  [Keyboard.button.callback('Проверить, что это такое.', 'startEp')],
-]);
+const keyboardStart = Keyboard.inlineKeyboard([[Keyboard.button.callback('Проверить, что это такое.', 'startEp')]]);
 
-const keyboardStart1Ep = Keyboard.inlineKeyboard([
-  [Keyboard.button.callback('Поехали!', 'startEp1')],
-]);
+const keyboardStart1Ep = Keyboard.inlineKeyboard([[Keyboard.button.callback('Поехали!', 'startEp1')]]);
 
-const keyboardStart2Ep = Keyboard.inlineKeyboard([
-  [Keyboard.button.callback('Давай продолжим!', 'startEp2')],
-]);
+const keyboardStart2Ep = Keyboard.inlineKeyboard([[Keyboard.button.callback('Давай продолжим!', 'startEp2')]]);
 
 const keyboardStart3Ep = Keyboard.inlineKeyboard([
   [Keyboard.button.callback('Давайте дальше спасать мир!', 'startEp3')],
 ]);
 
-const keyboardFinal = Keyboard.inlineKeyboard([
-  [Keyboard.button.callback('Пора домой!', 'startFinal')],
-]);
+const keyboardFinal = Keyboard.inlineKeyboard([[Keyboard.button.callback('Пора домой!', 'startFinal')]]);
 
-const keyboardEpilog = Keyboard.inlineKeyboard([
-  [Keyboard.button.callback('Я запомнил!', 'startEpilog')],
-]);
+const keyboardEpilog = Keyboard.inlineKeyboard([[Keyboard.button.callback('Я запомнил!', 'startEpilog')]]);
 
 const keyboardEnd = Keyboard.inlineKeyboard([[Keyboard.button.callback('Это только начало!', 'End')]]);
 
 const keyboard0Ep = Keyboard.inlineKeyboard([
-  [
-    Keyboard.button.callback('Выбор А', 'choise0_1'),
-    Keyboard.button.callback('Выбор Б', 'choise0_2'),
-  ],
+  [Keyboard.button.callback('Выбор А', 'choise0_1'), Keyboard.button.callback('Выбор Б', 'choise0_2')],
 ]);
 
 const keyboard1Ep1Q = Keyboard.inlineKeyboard([
-  [
-    Keyboard.button.callback('Выбор А', 'choise1_1'),
-    Keyboard.button.callback('Выбор Б', 'choise1_2'),
-  ],
+  [Keyboard.button.callback('Выбор А', 'choise1_1'), Keyboard.button.callback('Выбор Б', 'choise1_2')],
 ]);
 
 const keyboard1Ep2Q = Keyboard.inlineKeyboard([
-  [
-    Keyboard.button.callback('Выбор А', 'choise1_3'),
-    Keyboard.button.callback('Выбор Б', 'choise1_4'),
-  ],
+  [Keyboard.button.callback('Выбор А', 'choise1_3'), Keyboard.button.callback('Выбор Б', 'choise1_4')],
 ]);
 
 const keyboard1Ep3Q = Keyboard.inlineKeyboard([
-  [
-    Keyboard.button.callback('Выбор А', 'choise1_5'),
-    Keyboard.button.callback('Выбор Б', 'choise1_6'),
-  ],
+  [Keyboard.button.callback('Выбор А', 'choise1_5'), Keyboard.button.callback('Выбор Б', 'choise1_6')],
 ]);
 
 const keyboard2Ep = Keyboard.inlineKeyboard([
@@ -157,7 +135,7 @@ const keyboard3Ep3Q = Keyboard.inlineKeyboard([
   ],
 ]);
 
-bot.action('startEp', async (ctx) => {
+bot.action('startEp', async ctx => {
   try {
     await ctx.reply('В лаборатории вас встречает профессор и его ассистент — <b>Тюленюся.</b>', {
       format: 'html',
@@ -166,13 +144,13 @@ bot.action('startEp', async (ctx) => {
     await ctx.reply(
       `<b>Профессор Экоста:</b> Рад, что вы пришли! 
 Тюленюся зафиксировала аномалии в пространственно-временном континууме, вызванные экологическими проблемами. Мы можем отправить вас в "горячие точки" будущего, чтобы исправить ошибки настоящего. <b>Готовы?</b>`,
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(5000);
     await ctx.reply(
       `<b>Выбор А:</b> Это опасно?
 <b>Выбор Б:</b> Конечно, я в деле!`,
-      { attachments: [keyboard0Ep], format: 'html' }
+      { attachments: [keyboard0Ep], format: 'html' },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -183,11 +161,11 @@ bot.action('startEp', async (ctx) => {
   }
 });
 
-bot.action('choise0_1', async (ctx) => {
+bot.action('choise0_1', async ctx => {
   try {
     await ctx.reply(
       'В целом это безопасно. <b>Опасность — 73%.</b> Ваши решения будут влиять на исход миссии. <b>Начинаем телепортацию!</b>',
-      { attachments: [keyboardStart1Ep, getImg('prolog')], format: 'html' }
+      { attachments: [keyboardStart1Ep, getImg('prolog')], format: 'html' },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -198,11 +176,11 @@ bot.action('choise0_1', async (ctx) => {
   }
 });
 
-bot.action('choise0_2', async (ctx) => {
+bot.action('choise0_2', async ctx => {
   try {
     await ctx.reply(
       'Да ты отважный. <b>Опасность — 73%.</b> Ваши решения будут влиять на исход миссии. <b>Начинаем телепортацию!</b>',
-      { attachments: [keyboardStart1Ep, getImg('prolog')], format: 'html' }
+      { attachments: [keyboardStart1Ep, getImg('prolog')], format: 'html' },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -213,50 +191,44 @@ bot.action('choise0_2', async (ctx) => {
   }
 });
 
-bot.action('startEp1', async (ctx) => {
+bot.action('startEp1', async ctx => {
   try {
     await ctx.reply('<b>Глава 1. Нексус жизни</b>', { format: 'html' });
     await delay(300);
     await ctx.reply(
       'Вы появляетесь не в привычном пространстве, а внутри огромной, сложной и светящейся структуры, напоминающей паутину. От каждой точки исходят сотни нитей к другим точкам.',
-      { attachments: [getImg('ep1_1')] }
+      { attachments: [getImg('ep1_1')] },
     );
     await delay(7000);
     await ctx.reply(
       `<b>Тюленюся:</b> Добро пожаловать в <b>Нексус Жизни</b> — визуальное воплощение принципов экологии. Это не просто город. Это модель нашего мира, где всё связано невидимыми нитями. 
 
 Экология — это не просто скучный предмет, это наука о нашем общем доме и о том, как все его жители, включая нас, зависят друг от друга.`,
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(9000);
     await ctx.reply(
-      'Вы медленно парите в этой паутине света. Одни нити горят ровным ярким светом, другие мерцают, как лампочки на исходе, а третьи и вовсе оборваны, и от них остались лишь угасающие искры.'
+      'Вы медленно парите в этой паутине света. Одни нити горят ровным ярким светом, другие мерцают, как лампочки на исходе, а третьи и вовсе оборваны, и от них остались лишь угасающие искры.',
     );
     await delay(6000);
     await ctx.reply(
       '<b>Тюленюся:</b> Посмотрите на эту нить. От неё тянутся сотни связей ко всем живым существам, которые объединены в единую экосистему.',
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(5000);
     await ctx.reply(
       `Она касается нити, и та вспыхивает. Вы видите краткое видение: бескрайние поля, луга, процветающие города и леса. 
 Затем она ослабляет хватку, и нить гаснет. Видение сменяется: леса вырублены, поля бесплодны, прилавки магазинов пустеют.`,
-      { attachments: [getImg('ep1_2')] }
+      { attachments: [getImg('ep1_2')] },
     );
     await delay(6000);
-    await ctx.reply(
-      '<b>Тюленюся:</b> И это лишь одна нить. А теперь посмотрите, с чем она связана.',
-      {
-        format: 'html',
-      }
-    );
+    await ctx.reply('<b>Тюленюся:</b> И это лишь одна нить. А теперь посмотрите, с чем она связана.', {
+      format: 'html',
+    });
     await delay(4000);
-    await ctx.reply(
-      '<b>Вам предстоит стабилизировать систему, столкнувшись с тремя проблемами экологии.</b>',
-      {
-        format: 'html',
-      }
-    );
+    await ctx.reply('<b>Вам предстоит стабилизировать систему, столкнувшись с тремя проблемами экологии.</b>', {
+      format: 'html',
+    });
     await delay(5000);
     await ctx.reply('<b>Проблема 1:</b> Мусорный коллапс', {
       attachments: [getImg('ep1_3')],
@@ -266,13 +238,13 @@ bot.action('startEp1', async (ctx) => {
     await ctx.reply(
       `<b>Тюленюся:</b> Это не просто проблема неприятного запаха или испорченного пейзажа. Мусор на свалке — это бомба замедленного действия. 
 Токсичные вещества просачиваются в грунтовые воды, отравляя питьевые источники. Отравленная почва становится бесплодной, губя растительность. Пластиковый мусор, попадая в реки и моря, убивает их обитателей. Это не локальная проблема — это угроза для целых экосистем.`,
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(9000);
     await ctx.reply(
       `<b>Выбор А:</b> Построить мусоросжигательный завод без фильтров. 
 <b>Выбор Б:</b> Внедрить систему раздельного сбора и глубокой переработки отходов.`,
-      { attachments: [keyboard1Ep1Q], format: 'html' }
+      { attachments: [keyboard1Ep1Q], format: 'html' },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -283,7 +255,7 @@ bot.action('startEp1', async (ctx) => {
   }
 });
 
-bot.action('choise1_1', async (ctx) => {
+bot.action('choise1_1', async ctx => {
   try {
     const userId = ctx.user.user_id;
     score[userId] = (score[userId] || 0) + 1;
@@ -294,13 +266,13 @@ bot.action('choise1_1', async (ctx) => {
     await delay(2000);
     await ctx.reply(
       '<b>Тюленюся:</b> Отравленная вода убивает речных обитателей. Но на этом последствия не заканчиваются. Животные, которые питались рыбой, гибнут. На полях, которые орошались из реки, накапливаются токсины. Яд попадает в питьевую воду десятков городов ниже по течению.',
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(9000);
     await ctx.reply(
       `<b>Выбор А:</b> Поставить мощные фильтры на заводе. 
 <b>Выбор Б:</b> Перепрофилировать завод на "зелёные" технологии: экологичнее и эффектвнее.`,
-      { attachments: [keyboard1Ep2Q], format: 'html' }
+      { attachments: [keyboard1Ep2Q], format: 'html' },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -311,7 +283,7 @@ bot.action('choise1_1', async (ctx) => {
   }
 });
 
-bot.action('choise1_2', async (ctx) => {
+bot.action('choise1_2', async ctx => {
   try {
     const userId = ctx.user.user_id;
     score[userId] = (score[userId] || 0) + 2;
@@ -322,13 +294,13 @@ bot.action('choise1_2', async (ctx) => {
     await delay(2000);
     await ctx.reply(
       '<b>Тюленюся:</b> Отравленная вода убивает речных обитателей. Но на этом последствия не заканчиваются. Животные, которые питались рыбой, гибнут. На полях, которые орошались из реки, накапливаются токсины. Яд попадает в питьевую воду десятков городов ниже по течению.',
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(9000);
     await ctx.reply(
       `<b>Выбор А:</b> Поставить мощные фильтры на заводе. 
 <b>Выбор Б:</b> Перепрофилировать завод на "зелёные" технологии.`,
-      { attachments: [keyboard1Ep2Q], format: 'html' }
+      { attachments: [keyboard1Ep2Q], format: 'html' },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -339,7 +311,7 @@ bot.action('choise1_2', async (ctx) => {
   }
 });
 
-bot.action('choise1_3', async (ctx) => {
+bot.action('choise1_3', async ctx => {
   try {
     const userId = ctx.user.user_id;
     score[userId] = (score[userId] || 0) + 1;
@@ -351,13 +323,13 @@ bot.action('choise1_3', async (ctx) => {
     await ctx.reply(
       `<b>Тюленюся:</b> Мы дышим не только кислородом. Мы дышим тем, что попадает в воздух. Частицы смога оседают на почве и в воде, попадают в растения, а затем по пищевой цепочке — в организмы животных и человека. 
 Загрязнение воздуха — это не просто проблема "где-то там", это то, что в итоге оказывается в нашей тарелке.`,
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(9000);
     await ctx.reply(
       `<b>Выбор А:</b> Раздать горожанам защитные маски. 
 <b>Выбор Б:</b> Инвестировать в общественный транспорт и зелёные зоны, чтобы очистить воздух в источнике.`,
-      { attachments: [keyboard1Ep3Q], format: 'html' }
+      { attachments: [keyboard1Ep3Q], format: 'html' },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -368,7 +340,7 @@ bot.action('choise1_3', async (ctx) => {
   }
 });
 
-bot.action('choise1_4', async (ctx) => {
+bot.action('choise1_4', async ctx => {
   try {
     const userId = ctx.user.user_id;
     score[userId] = (score[userId] || 0) + 2;
@@ -380,13 +352,13 @@ bot.action('choise1_4', async (ctx) => {
     await ctx.reply(
       `<b>Тюленюся:</b> Мы дышим не только кислородом. Мы дышим тем, что попадает в воздух. Частицы смога оседают на почве и в воде, попадают в растения, а затем по пищевой цепочке — в организмы животных и человека. 
 Загрязнение воздуха — это не просто проблема "где-то там", это то, что в итоге оказывается в нашей тарелке.`,
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(9000);
     await ctx.reply(
       `<b>Выбор А:</b> Раздать горожанам защитные маски. 
 <b>Выбор Б:</b> Инвестировать в общественный транспорт и зелёные зоны, чтобы очистить воздух в источнике.`,
-      { attachments: [keyboard1Ep3Q], format: 'html' }
+      { attachments: [keyboard1Ep3Q], format: 'html' },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -397,13 +369,13 @@ bot.action('choise1_4', async (ctx) => {
   }
 });
 
-bot.action('choise1_5', async (ctx) => {
+bot.action('choise1_5', async ctx => {
   try {
     const userId = ctx.user.user_id;
     score[userId] = (score[userId] || 0) + 1;
     await ctx.reply(
       '<b>Тюленюся:</b> Экология — это про связи. Нельзя выдернуть один элемент, не задев другие. Здоровье планеты — это не роскошь. <b>Это основа нашей жизни.</b> Опасность — 54%.',
-      { format: 'html', attachments: [keyboardStart2Ep] }
+      { format: 'html', attachments: [keyboardStart2Ep] },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -414,13 +386,13 @@ bot.action('choise1_5', async (ctx) => {
   }
 });
 
-bot.action('choise1_6', async (ctx) => {
+bot.action('choise1_6', async ctx => {
   try {
     const userId = ctx.user.user_id;
     score[userId] = (score[userId] || 0) + 2;
     await ctx.reply(
       '<b>Тюленюся:</b> Экология — это про связи. Нельзя выдернуть один элемент, не задев другие. Здоровье планеты — это не роскошь. <b>Это основа нашей жизни.</b> Опасность — 43%.',
-      { format: 'html', attachments: [keyboardStart2Ep] }
+      { format: 'html', attachments: [keyboardStart2Ep] },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -431,18 +403,18 @@ bot.action('choise1_6', async (ctx) => {
   }
 });
 
-bot.action('startEp2', async (ctx) => {
+bot.action('startEp2', async ctx => {
   try {
     await ctx.reply('<b>Глава 2. Лицо врага</b>', { format: 'html' });
     await delay(300);
     await ctx.reply(
       'Нексус меркнет, и вы переноситесь в мрачный, напоминающий архив, зал. Стены — это гигантские интерактивные экраны. На них — не схемы, а реальные кадры: горящие леса, моря мусора, пересохшие реки. Воздух наполнен тревожным гулом данных.',
-      { attachments: [getImg('ep2_1')] }
+      { attachments: [getImg('ep2_1')] },
     );
     await delay(9000);
     await ctx.reply(
       '<b>Тюленюся:</b> Вы увидели, как система должна работать. Это не сценарии фильмов с тёмным будущим, это сводки с полей сражений, которые происходят здесь и сейчас, каждый день. Вот главные угрозы, которые уже разрывают паутину жизни.',
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(9000);
     await ctx.reply('Перед вами возникают три главных "досье".');
@@ -453,13 +425,13 @@ bot.action('startEp2', async (ctx) => {
     });
     await delay(3000);
     await ctx.reply(
-      'На экране — шокирующие сравнения: мегаполис, окутанный смогом, и тот же город в ясный день. Подводные съёмки глубин, где пластиковые пакеты колышутся вместо водорослей.'
+      'На экране — шокирующие сравнения: мегаполис, окутанный смогом, и тот же город в ясный день. Подводные съёмки глубин, где пластиковые пакеты колышутся вместо водорослей.',
     );
     await delay(7000);
     await ctx.reply(
       `<b>Тюленюся:</b> Ежегодно около 7 миллионов человек преждевременно умирают из-за загрязнения воздуха. Микропластик обнаружен в организме человека. Он проник в самые отдалённые уголки планеты — от вершин Эвереста до глубин Марианской впадины. 
 Мы едим, пьём и дышим последствиями нашей беспечности. Это медленный, но неумолимый яд.`,
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(15000);
     await ctx.reply('<b>Досье №2: «ЛИХОРАДКА». Проблема: Изменение климата.</b>', {
@@ -468,32 +440,27 @@ bot.action('startEp2', async (ctx) => {
     });
     await delay(3000);
     await ctx.reply(
-      'Экран показывает таймлапс: стремительное таяние ледников за последние 50 лет. Вечные льды, хранившие историю планеты, на наших глазах превращаются в воду.'
+      'Экран показывает таймлапс: стремительное таяние ледников за последние 50 лет. Вечные льды, хранившие историю планеты, на наших глазах превращаются в воду.',
     );
     await delay(5000);
     await ctx.reply(
       `<b>Тюленюся:</b> Планета нагревается. Это не "просто более тёплое лето". Это сдвиг климатических поясов. 
 Это учащение экстремальных погодных явлений: засух, уничтожающих урожаи; наводнений, смывающих города; аномальной жары, уносящей жизни. Это кризис продовольствия, воды и климатических беженцев. Это прямая угроза существованию нашей цивилизации в её нынешнем виде.`,
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(15000);
-    await ctx.reply(
-      '<b>Досье №3: «ТИХИЙ ГОЛОД». Проблема: Истощение ресурсов и биоразнообразия.</b>',
-      {
-        format: 'html',
-        attachments: [getImg('ep2_4')],
-      }
-    );
+    await ctx.reply('<b>Досье №3: «ТИХИЙ ГОЛОД». Проблема: Истощение ресурсов и биоразнообразия.</b>', {
+      format: 'html',
+      attachments: [getImg('ep2_4')],
+    });
     await delay(3000);
-    await ctx.reply(
-      'Вы видите съёмки вырубленных лесов. Гектары жизни, превращённые в пустошь.'
-    );
+    await ctx.reply('Вы видите съёмки вырубленных лесов. Гектары жизни, превращённые в пустошь.');
     await delay(5000);
     await ctx.reply(
       `<b>Тюленюся:</b> Мы живём так, будто у нас есть вторая планета в запасе. Мы вылавливаем рыбу быстрее, чем она может восстановиться. Вырубаем леса — главные поставщики кислорода. Уничтожаем среду обитания тысяч видов, вызывая шестое массовое вымирание в истории Земли. Но на этот раз причина — не астероид, а мы. 
       
 Без биоразнообразия экосистемы теряют устойчивость и рушатся, лишая нас своих "услуг": чистого воздуха, воды, плодородных почв.`,
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(15000);
     await ctx.reply('<b>Задача: Приоритизация угроз.</b>', { format: 'html' });
@@ -501,13 +468,13 @@ bot.action('startEp2', async (ctx) => {
     await ctx.reply(
       `<b>Тюленюся:</b> Все три угрозы критичны. Но если бы вам пришлось выбрать одну для срочного доклада мировым лидерам, какую бы вы выделили? 
 Это не вопрос с правильным ответом. Это вопрос стратегии и этики.`,
-      { format: 'html' }
+      { format: 'html' },
     );
     await ctx.reply(
       `<b>Выбор А:</b> «УДУШЬЕ» — это непосредственная и видимая угроза здоровью каждого человека.
 <b>Выбор Б:</b> «ЛИХОРАДКА» — это системный кризис, способный обрушить всё.
 <b>Выбор В:</b> «ТИХИЙ ГОЛОД» — это подрыв самого фундамента жизни, последствия которого необратимы.`,
-      { format: 'html', attachments: [keyboard2Ep] }
+      { format: 'html', attachments: [keyboard2Ep] },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -518,11 +485,11 @@ bot.action('startEp2', async (ctx) => {
   }
 });
 
-bot.action('choise2', async (ctx) => {
+bot.action('choise2', async ctx => {
   try {
     await ctx.reply(
       '<b>Тюленюся:</b> Ваш выбор зафиксирован. Запомните это чувство — тяжесть ответственности. В реальном мире такие решения принимаются ежедневно. Игнорирование любой из этих проблем ведёт к коллапсу. Осознание — это первый шаг к исцелению. <b>Опасность — 27%.</b>',
-      { format: 'html', attachments: [keyboardStart3Ep] }
+      { format: 'html', attachments: [keyboardStart3Ep] },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -533,13 +500,13 @@ bot.action('choise2', async (ctx) => {
   }
 });
 
-bot.action('startEp3', async (ctx) => {
+bot.action('startEp3', async ctx => {
   try {
     await ctx.reply('<b>Глава 3. Арсенал перемен</b>', { format: 'html' });
     await delay(300);
     await ctx.reply(
       'Вы оказываетесь в светлом, просторном и технологичном «Зале Решений». В центре — голографический глобус, на котором вспыхивают точки зелёного света. Каждая точка — это реальный проект, инициатива или действие.',
-      { attachments: [getImg('ep3_1')] }
+      { attachments: [getImg('ep3_1')] },
     );
     await delay(5000);
     await ctx.reply(
@@ -547,14 +514,14 @@ bot.action('startEp3', async (ctx) => {
 А теперь — самое главное: инструменты для её решения есть! Самые эффективные изменения начинаются с малого, но, объединяясь, они приобретают колоссальную силу. 
       
 <b>Давайте составим ваш личный план спасения мира, уровень за уровнем.</b>`,
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(7000);
     await ctx.reply('<b>Уровень 1. Личный арсенал</b>', { format: 'html' });
     await delay(1000);
     await ctx.reply(
       '<b>Тюленюся:</b> Ваша личная сила — в ваших повседневных выборах. Они формируют спрос и посылают сигнал рынку.',
-      { format: 'html', attachments: [getImg('ep3_2')] }
+      { format: 'html', attachments: [getImg('ep3_2')] },
     );
     await delay(5000);
     await ctx.reply(
@@ -566,7 +533,7 @@ bot.action('startEp3', async (ctx) => {
 
 <b>Выбор В:</b> «Разумная тарелка»
 Немного сократите потребление мяса. Выращивание скота — один из главных источников парниковых газов и вырубки лесов. Это ваш вклад в борьбу с «ТИХИМ ГОЛОДОМ».`,
-      { format: 'html', attachments: [keyboard3Ep1Q] }
+      { format: 'html', attachments: [keyboard3Ep1Q] },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -577,17 +544,14 @@ bot.action('startEp3', async (ctx) => {
   }
 });
 
-bot.action('choise3_1', async (ctx) => {
+bot.action('choise3_1', async ctx => {
   try {
     await ctx.reply('<b>Уровень 2. Локальный арсенал</b>', { format: 'html' });
     await delay(1000);
-    await ctx.reply(
-      '<b>Тюленюся:</b> Вы не одиноки. Объединяйтесь! Ваша сила умножается в сообществе.',
-      {
-        format: 'html',
-        attachments: [getImg('ep3_3')],
-      }
-    );
+    await ctx.reply('<b>Тюленюся:</b> Вы не одиноки. Объединяйтесь! Ваша сила умножается в сообществе.', {
+      format: 'html',
+      attachments: [getImg('ep3_3')],
+    });
     await delay(5000);
     await ctx.reply(
       `<b>Выбор А:</b> «Дайте вещам вторую жизнь»
@@ -598,7 +562,7 @@ bot.action('choise3_1', async (ctx) => {
 
 <b>Выбор В:</b> «Эко-лобби»
 Создайте эко-клуб. Вместе вы сможете продвигать идеи озеленения, велопарковок, раздельного сбора в вашем учебном заведении.`,
-      { format: 'html', attachments: [keyboard3Ep2Q] }
+      { format: 'html', attachments: [keyboard3Ep2Q] },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -609,13 +573,13 @@ bot.action('choise3_1', async (ctx) => {
   }
 });
 
-bot.action('choise3_2', async (ctx) => {
+bot.action('choise3_2', async ctx => {
   try {
     await ctx.reply('<b>Уровень 3. Глобальный арсенал</b>', { format: 'html' });
     await delay(1000);
     await ctx.reply(
       '<b>Тюленюся:</b> Ваше влияние может быть поистине глобальным. Благодаря технологиям, границы стираются.',
-      { format: 'html', attachments: [getImg('ep3_4')] }
+      { format: 'html', attachments: [getImg('ep3_4')] },
     );
     await delay(5000);
     await ctx.reply(
@@ -628,7 +592,7 @@ bot.action('choise3_2', async (ctx) => {
 <b>Выбор В:</b> «VK Добро — твой супер-инструмент»
 Это не просто сайт. Это портал, где ваше желание помочь встречается с тысячами реальных потребностей. 
 Прямо сейчас, пока мы говорим, там есть десятки эко-проектов, которым нужны ваши руки, ваш ум, ваше время. Можно стать волонтёром в заповеднике. Можно найти локальные акции по уборке леса или посадке деревьев в вашем городе. Ваше желание помочь обретает здесь конкретную цель и мощь коллектива.`,
-      { format: 'html', attachments: [keyboard3Ep3Q] }
+      { format: 'html', attachments: [keyboard3Ep3Q] },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -639,23 +603,23 @@ bot.action('choise3_2', async (ctx) => {
   }
 });
 
-bot.action('choise3_3', async (ctx) => {
+bot.action('choise3_3', async ctx => {
   try {
     await ctx.reply(
       `<b>Тюленюся:</b> Идеальная стратегия сочетает <b>все три уровня</b>. 
 
 Ваш личный пример вдохновляет соседа. Локальный клуб меняет правила в вашей школе. А участие в таких платформах как VK Добро превращает ребят в сплочённую армию добра, способную менять мир к лучшему в глобальном масштабе.`,
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(5000);
     await ctx.reply(
       '<b>Тюленюся:</b> VK Добро — место, где легко помогать. Уже сейчас ты можешь начать помогать на этом сайте: https://dobro.mail.ru',
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(5000);
     await ctx.reply(
       '<b>Тюленюся:</b> Запомните: никто не может сделать всё, но каждый может сделать что-то. <b>И вместе мы — сила.</b> Но, кажется, пора возвращаться назад.',
-      { format: 'html', attachments: [keyboardFinal] }
+      { format: 'html', attachments: [keyboardFinal] },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -666,68 +630,57 @@ bot.action('choise3_3', async (ctx) => {
   }
 });
 
-bot.action('startFinal', async (ctx) => {
+bot.action('startFinal', async ctx => {
   try {
     await ctx.reply('<b>Финал. Точка возврата</b>', { format: 'html' });
     const userId = ctx.user.user_id;
     const userScore = score[userId] || 0;
-    await ctx.reply(
-      'Вы возвращаетесь в лабораторию. Профессор Экоста и Тюленюся анализируют данные.'
-    );
+    await ctx.reply('Вы возвращаетесь в лабораторию. Профессор Экоста и Тюленюся анализируют данные.');
     await delay(3000);
-    await ctx.reply(
-      '<b>Тюленюся:</b> Ваши решения создали новые временные линии. Посмотрим на результаты...',
-      {
-        format: 'html',
-      }
-    );
+    await ctx.reply('<b>Тюленюся:</b> Ваши решения создали новые временные линии. Посмотрим на результаты...', {
+      format: 'html',
+    });
     await delay(3000);
     if (userScore >= 3 && userScore <= 4) {
       await ctx.reply('Города чище, но экономика в упадке. Социальная напряжённость.', {
         attachments: [getImg('ep4_1')],
       });
       await delay(3000);
-      await ctx.reply(
-        '<b>Тюленюся:</b> Вы спасли планету, но потеряли людей. Устойчивое развитие требует баланса.',
-        {
-          format: 'html',
-        }
-      );
+      await ctx.reply('<b>Тюленюся:</b> Вы спасли планету, но потеряли людей. Устойчивое развитие требует баланса.', {
+        format: 'html',
+      });
       await delay(6000);
     } else if (userScore == 5) {
       await ctx.reply(
         'Прогресс есть, но он неравномерен. Богатые страны живут в "зелёных пузырях", бедные тонут в отходах.',
-        { attachments: [getImg('ep4_2')] }
+        { attachments: [getImg('ep4_2')] },
       );
       await delay(3000);
       await ctx.reply(
         '<b>Тюленюся:</b> Система пытается восстановить баланс, но ваши выборы создали новые разрывы. Вы видели симптомы, но не искали причины. Технологии — это инструмент, а не решение. Без справедливости они создают новый разрыв.',
-        { format: 'html' }
+        { format: 'html' },
       );
       await delay(6000);
     } else if (userScore == 6) {
-      await ctx.reply(
-        'Мир становится зелёным и справедливым. Развивается экономика, люди осознаннее.',
-        {
-          attachments: [getImg('ep4_3')],
-        }
-      );
+      await ctx.reply('Мир становится зелёным и справедливым. Развивается экономика, люди осознаннее.', {
+        attachments: [getImg('ep4_3')],
+      });
       await delay(3000);
       await ctx.reply(
         `<b>Тюленюся:</b> Идеальный баланс! Вы действовали как настоящий хранитель Нексуса. 
         Каждое ваше решение укрепляло не одну, а множество нитей одновременно. Сеть жизни стала прочнее благодаря вашему мудрому выбору. Так и должно быть - мы часть системы, а не её хозяева.`,
-        { format: 'html' }
+        { format: 'html' },
       );
       await delay(6000);
     }
     await ctx.reply(
       '<b>Тюленюся, подводя итог:</b> Экология — это про связи. Нельзя выдернуть один элемент, не задев другие. Здоровье планеты — это не роскошь. Это основа нашей жизни.',
-      { format: 'html' }
+      { format: 'html' },
     );
     await delay(5000);
     await ctx.reply(
       '<b>Профессор Экоста:</b> Поздравляю. Теперь вы видите всю картину. Одно решение влечёт за собой десятки последствий. <b>Запомните этот урок.</b>',
-      { format: 'html', attachments: [keyboardEpilog] }
+      { format: 'html', attachments: [keyboardEpilog] },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -738,13 +691,11 @@ bot.action('startFinal', async (ctx) => {
   }
 });
 
-bot.action('startEpilog', async (ctx) => {
+bot.action('startEpilog', async ctx => {
   try {
     await ctx.reply('<b>Эпилог. Ваша миссия</b>', { format: 'html' });
     await delay(1000);
-    await ctx.reply(
-      'Вы выходите из лаборатории. Всё как прежде. Но на ваш телефон приходит сообщение.'
-    );
+    await ctx.reply('Вы выходите из лаборатории. Всё как прежде. Но на ваш телефон приходит сообщение.');
     await delay(5000);
     await ctx.reply(
       `<b>Тюленюся:</b> Миссия в будущем завершена. Но ваша миссия в настоящем только началась. Основываясь на ваших действиях, я подготовила для вас персональный план по спасению мира:
@@ -753,7 +704,7 @@ bot.action('startEpilog', async (ctx) => {
 3.  Провести воркшоп по апсайклингу для одноклассников.
 
 <b>Готовы принять вызов?</b>`,
-      { format: 'html', attachments: [keyboardEnd, getImg('final')] }
+      { format: 'html', attachments: [keyboardEnd, getImg('final')] },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -764,7 +715,7 @@ bot.action('startEpilog', async (ctx) => {
   }
 });
 
-bot.action('End', async (ctx) => {
+bot.action('End', async ctx => {
   try {
     await ctx.reply(
       `<b>Приключения Профессора Экосты и Тюлениси</b> подошли к концу.
@@ -772,7 +723,7 @@ bot.action('End', async (ctx) => {
 Тюленюся подготовила для тебя <b>полезную памятку по экологическим проблемам:</b> https://vk.cc/cRg4qU
 
 Используй полученные знания в будущем и делай добрые дела!`,
-      { format: 'html' }
+      { format: 'html' },
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -783,11 +734,11 @@ bot.action('End', async (ctx) => {
   }
 });
 
-bot.on('bot_started', async (ctx) => {
+bot.on('bot_started', async ctx => {
   try {
     await ctx.reply(
       'Вы получаете email от загадочного профессора Экоста: «Ваши работы по биологии впечатлили меня. Приходите сегодня в 18:00 в лабораторию №5. Покажу нечто... выходящее за рамки»',
-      { attachments: [keyboardStart, getImg('start')] }
+      { attachments: [keyboardStart, getImg('start')] },
     );
   } catch (error: any) {
     if (error.status === 403) {
