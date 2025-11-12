@@ -61,6 +61,8 @@ const images = await (async () => {
   return results;
 })();
 
+const getImg = (key: string) => images[key]?.toJson?.() || null;
+
 process.on('unhandledRejection', (error) => {
   console.log('Error', error);
 });
@@ -185,7 +187,7 @@ bot.action('choise0_1', async (ctx) => {
   try {
     await ctx.reply(
       'В целом это безопасно. <b>Опасность — 73%.</b> Ваши решения будут влиять на исход миссии. <b>Начинаем телепортацию!</b>',
-      { attachments: [keyboardStart1Ep, images.prolog.toJson()], format: 'html' }
+      { attachments: [keyboardStart1Ep, getImg('prolog')], format: 'html' }
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -200,7 +202,7 @@ bot.action('choise0_2', async (ctx) => {
   try {
     await ctx.reply(
       'Да ты отважный. <b>Опасность — 73%.</b> Ваши решения будут влиять на исход миссии. <b>Начинаем телепортацию!</b>',
-      { attachments: [keyboardStart1Ep, images.prolog.toJson()], format: 'html' }
+      { attachments: [keyboardStart1Ep, getImg('prolog')], format: 'html' }
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -217,7 +219,7 @@ bot.action('startEp1', async (ctx) => {
     await delay(300);
     await ctx.reply(
       'Вы появляетесь не в привычном пространстве, а внутри огромной, сложной и светящейся структуры, напоминающей паутину. От каждой точки исходят сотни нитей к другим точкам.',
-      { attachments: [images.ep1_1.toJson()] }
+      { attachments: [getImg('ep1_1')] }
     );
     await delay(7000);
     await ctx.reply(
@@ -239,7 +241,7 @@ bot.action('startEp1', async (ctx) => {
     await ctx.reply(
       `Она касается нити, и та вспыхивает. Вы видите краткое видение: бескрайние поля, луга, процветающие города и леса. 
 Затем она ослабляет хватку, и нить гаснет. Видение сменяется: леса вырублены, поля бесплодны, прилавки магазинов пустеют.`,
-      { attachments: [images.ep1_2.toJson()] }
+      { attachments: [getImg('ep1_2')] }
     );
     await delay(6000);
     await ctx.reply(
@@ -257,7 +259,7 @@ bot.action('startEp1', async (ctx) => {
     );
     await delay(5000);
     await ctx.reply('<b>Проблема 1:</b> Мусорный коллапс', {
-      attachments: [images.ep1_3.toJson()],
+      attachments: [getImg('ep1_3')],
       format: 'html',
     });
     await delay(2000);
@@ -286,7 +288,7 @@ bot.action('choise1_1', async (ctx) => {
     const userId = ctx.user.user_id;
     score[userId] = (score[userId] || 0) + 1;
     await ctx.reply('<b>Проблема 2:</b> Проблема реки', {
-      attachments: [images.ep1_4.toJson()],
+      attachments: [getImg('ep1_4')],
       format: 'html',
     });
     await delay(2000);
@@ -314,7 +316,7 @@ bot.action('choise1_2', async (ctx) => {
     const userId = ctx.user.user_id;
     score[userId] = (score[userId] || 0) + 2;
     await ctx.reply('<b>Проблема 2:</b> Проблема реки', {
-      attachments: [images.ep1_4.toJson()],
+      attachments: [getImg('ep1_4')],
       format: 'html',
     });
     await delay(2000);
@@ -342,7 +344,7 @@ bot.action('choise1_3', async (ctx) => {
     const userId = ctx.user.user_id;
     score[userId] = (score[userId] || 0) + 1;
     await ctx.reply('<b>Проблема 3:</b> Воздух, который нас кормит', {
-      attachments: [images.ep1_5.toJson()],
+      attachments: [getImg('ep1_5')],
       format: 'html',
     });
     await delay(2000);
@@ -371,7 +373,7 @@ bot.action('choise1_4', async (ctx) => {
     const userId = ctx.user.user_id;
     score[userId] = (score[userId] || 0) + 2;
     await ctx.reply('<b>Проблема 3:</b> Воздух, который нас кормит', {
-      attachments: [images.ep1_5.toJson()],
+      attachments: [getImg('ep1_5')],
       format: 'html',
     });
     await delay(2000);
@@ -435,7 +437,7 @@ bot.action('startEp2', async (ctx) => {
     await delay(300);
     await ctx.reply(
       'Нексус меркнет, и вы переноситесь в мрачный, напоминающий архив, зал. Стены — это гигантские интерактивные экраны. На них — не схемы, а реальные кадры: горящие леса, моря мусора, пересохшие реки. Воздух наполнен тревожным гулом данных.',
-      { attachments: [images.ep2_1.toJson()] }
+      { attachments: [getImg('ep2_1')] }
     );
     await delay(9000);
     await ctx.reply(
@@ -447,7 +449,7 @@ bot.action('startEp2', async (ctx) => {
     await delay(3000);
     await ctx.reply('<b>Досье №1: «УДУШЬЕ». Проблема: Загрязнение воздуха пластиком.</b>', {
       format: 'html',
-      attachments: [images.ep2_2.toJson()],
+      attachments: [getImg('ep2_2')],
     });
     await delay(3000);
     await ctx.reply(
@@ -462,7 +464,7 @@ bot.action('startEp2', async (ctx) => {
     await delay(15000);
     await ctx.reply('<b>Досье №2: «ЛИХОРАДКА». Проблема: Изменение климата.</b>', {
       format: 'html',
-      attachments: [images.ep2_3.toJson()],
+      attachments: [getImg('ep2_3')],
     });
     await delay(3000);
     await ctx.reply(
@@ -479,7 +481,7 @@ bot.action('startEp2', async (ctx) => {
       '<b>Досье №3: «ТИХИЙ ГОЛОД». Проблема: Истощение ресурсов и биоразнообразия.</b>',
       {
         format: 'html',
-        attachments: [images.ep2_4.toJson()],
+        attachments: [getImg('ep2_4')],
       }
     );
     await delay(3000);
@@ -537,7 +539,7 @@ bot.action('startEp3', async (ctx) => {
     await delay(300);
     await ctx.reply(
       'Вы оказываетесь в светлом, просторном и технологичном «Зале Решений». В центре — голографический глобус, на котором вспыхивают точки зелёного света. Каждая точка — это реальный проект, инициатива или действие.',
-      { attachments: [images.ep3_1.toJson()] }
+      { attachments: [getImg('ep3_1')] }
     );
     await delay(5000);
     await ctx.reply(
@@ -552,7 +554,7 @@ bot.action('startEp3', async (ctx) => {
     await delay(1000);
     await ctx.reply(
       '<b>Тюленюся:</b> Ваша личная сила — в ваших повседневных выборах. Они формируют спрос и посылают сигнал рынку.',
-      { format: 'html', attachments: [images.ep3_2.toJson()] }
+      { format: 'html', attachments: [getImg('ep3_2')] }
     );
     await delay(5000);
     await ctx.reply(
@@ -583,7 +585,7 @@ bot.action('choise3_1', async (ctx) => {
       '<b>Тюленюся:</b> Вы не одиноки. Объединяйтесь! Ваша сила умножается в сообществе.',
       {
         format: 'html',
-        attachments: [images.ep3_3.toJson()],
+        attachments: [getImg('ep3_3')],
       }
     );
     await delay(5000);
@@ -613,7 +615,7 @@ bot.action('choise3_2', async (ctx) => {
     await delay(1000);
     await ctx.reply(
       '<b>Тюленюся:</b> Ваше влияние может быть поистине глобальным. Благодаря технологиям, границы стираются.',
-      { format: 'html', attachments: [images.ep3_4.toJson()] }
+      { format: 'html', attachments: [getImg('ep3_4')] }
     );
     await delay(5000);
     await ctx.reply(
@@ -682,7 +684,7 @@ bot.action('startFinal', async (ctx) => {
     await delay(3000);
     if (userScore >= 3 && userScore <= 4) {
       await ctx.reply('Города чище, но экономика в упадке. Социальная напряжённость.', {
-        attachments: [images.ep4_1.toJson()],
+        attachments: [getImg('ep4_1')],
       });
       await delay(3000);
       await ctx.reply(
@@ -695,7 +697,7 @@ bot.action('startFinal', async (ctx) => {
     } else if (userScore == 5) {
       await ctx.reply(
         'Прогресс есть, но он неравномерен. Богатые страны живут в "зелёных пузырях", бедные тонут в отходах.',
-        { attachments: [images.ep4_2.toJson()] }
+        { attachments: [getImg('ep4_2')] }
       );
       await delay(3000);
       await ctx.reply(
@@ -707,7 +709,7 @@ bot.action('startFinal', async (ctx) => {
       await ctx.reply(
         'Мир становится зелёным и справедливым. Развивается экономика, люди осознаннее.',
         {
-          attachments: [images.ep4_3.toJson()],
+          attachments: [getImg('ep4_3')],
         }
       );
       await delay(3000);
@@ -751,7 +753,7 @@ bot.action('startEpilog', async (ctx) => {
 3.  Провести воркшоп по апсайклингу для одноклассников.
 
 <b>Готовы принять вызов?</b>`,
-      { format: 'html', attachments: [keyboardEnd, images.final.toJson()] }
+      { format: 'html', attachments: [keyboardEnd, getImg('final')] }
     );
   } catch (error: any) {
     if (error.status === 403) {
@@ -785,7 +787,7 @@ bot.on('bot_started', async (ctx) => {
   try {
     await ctx.reply(
       'Вы получаете email от загадочного профессора Экоста: «Ваши работы по биологии впечатлили меня. Приходите сегодня в 18:00 в лабораторию №5. Покажу нечто... выходящее за рамки»',
-      { attachments: [keyboardStart, images.start.toJson()] }
+      { attachments: [keyboardStart, getImg('start')] }
     );
   } catch (error: any) {
     if (error.status === 403) {
