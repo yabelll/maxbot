@@ -17,7 +17,7 @@
 
 Перед запуском убедитесь, что у Вас установлены: Docker, Git
 
-## Установка и запуск кода
+## Установка и запуск проект
 
 1. Клонируйте репозиторий 
 ```bash
@@ -28,6 +28,21 @@ cd maxbot
 2. Запустите проект при помоще Docker с указанием вашего токена бота (BOT_TOKEN)
 ```bash
 echo "BOT_TOKEN=your_bot_token" > .env; docker-compose up -d --build
+```
+
+## Запуск Docker-образа
+
+1. Клонируйте репозиторий 
+```bash
+git clone https://github.com/yabelll/maxbot.git
+cd maxbot
+```
+
+2. Запустите проект при помощи Docker-образа с указанием вашего токена бота (BOT_TOKEN)
+```bash
+docker run -d --name botmax-container \
+  --env BOT_TOKEN=your_bot_token \
+  botmax-bot:latest
 ```
 ## Автор
 
